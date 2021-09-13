@@ -39,6 +39,7 @@ namespace NzbDrone.Core.MediaFiles.MediaInfo
         public string VideoColourPrimaries { get; set; }
 
         public string VideoTransferCharacteristics { get; set; }
+        public DoviConfigurationRecordSideData DoviConfigurationRecord { get; set; }
 
         public int Height { get; set; }
 
