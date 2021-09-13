@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using FFMpegCore;
 using NLog;
 using NzbDrone.Common.Disk;
-using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 
 namespace NzbDrone.Core.MediaFiles.MediaInfo
@@ -19,6 +17,7 @@ namespace NzbDrone.Core.MediaFiles.MediaInfo
 
     public class VideoFileInfoReader : IVideoFileInfoReader
     {
+        private static readonly string[] InterlacedFieldOrders = new[] { "tt", "tb", "bt" };
         private readonly IDiskProvider _diskProvider;
         private readonly Logger _logger;
         private readonly List<FFProbePixelFormat> _pixelFormats;
@@ -94,7 +93,7 @@ namespace NzbDrone.Core.MediaFiles.MediaInfo
                     Subtitles = analysis.SubtitleStreams?.Select(x => x.Language)
                             .Where(l => l.IsNotNullOrWhiteSpace())
                             .ToList(),
-                    ScanType = "Progressive",
+                    ScanType = InterlacedFieldOrders.Contains(analysis.PrimaryVideoStream.FieldOrder) ? "Interlaced" : "Progressive",
                     RawData = ffprobeOutput,
                     SchemaRevision = CURRENT_MEDIA_INFO_SCHEMA_REVISION
                 };

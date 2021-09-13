@@ -19,7 +19,7 @@
     <PackageReference Include="System.Data.SQLite.Core.Servarr" Version="1.0.113.0-0" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="MonoTorrent" Version="1.0.19" />
-    <PackageReference Include="FFMpegCore" Version="4.6.11" />
+    <PackageReference Include="FFMpegCore" Version="4.6.13" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common\Radarr.Common.csproj" />
