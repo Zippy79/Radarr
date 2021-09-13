@@ -424,12 +424,11 @@ stages:
       - bash: |
           chmod a+x _tests/ffprobe
         displayName: Make ffprobe Executable
-        condition: and(succeeded(), or(eq(variables['osName'], 'Mac'), eq(variables['testName'], 'LinuxCore')))
+        condition: and(succeeded(), ne(variables['osName'], 'Windows'))
       - bash: find ${TESTSFOLDER} -name "Radarr.Test.Dummy" -exec chmod a+x {} \;
         displayName: Make Test Dummy Executable
         condition: and(succeeded(), ne(variables['osName'], 'Windows'))
       - bash: |
-          ls -lR ${TESTSFOLDER}
           chmod a+x ${TESTSFOLDER}/test.sh
           ${TESTSFOLDER}/test.sh ${OSNAME} Unit Test
         displayName: Run Tests
@@ -473,12 +472,12 @@ stages:
           buildType: 'current'
           artifactName: $(artifactName)
           targetPath: $(testsFolder)
+      - bash: |
+          chmod a+x _tests/ffprobe
+        displayName: Make ffprobe Executable    
       - bash: find ${TESTSFOLDER} -name "Radarr.Test.Dummy" -exec chmod a+x {} \;
         displayName: Make Test Dummy Executable
         condition: and(succeeded(), ne(variables['osName'], 'Windows'))
-      - bash: |
-           sudo apk add  --no-cache ffmpeg
-        displayName: Install ffmpeg
       - bash: |
           chmod a+x ${TESTSFOLDER}/test.sh
           ls -lR ${TESTSFOLDER}
